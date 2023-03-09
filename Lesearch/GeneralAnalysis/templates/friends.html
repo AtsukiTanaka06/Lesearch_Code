@@ -1,0 +1,276 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block importcss %}
+<link rel="stylesheet" href="{% static 'common/css/analizeBase.css' %}">
+{% endblock importcss %}
+
+{% block content %}
+<div class="">
+  <div class="page-title">
+    <div class="title_left">
+      <h3 id="general-analysis-name">{{ name }}
+      </h3>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+  <br/>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2 class="resize_class">グラフ設定</h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <div class="row">
+            <div class="col-md-3 add_border_right">
+              <div class="form-group row">
+                <div class="col-md-12 add_padding">
+                  <label><b>通年</b></label>
+                  <i class="fa fa-question-circle tooltip_img"><span class="description_top">表示する年を選択出来ます。</span></i>
+                  <!-- 年ボタン タブ -->
+                  <div class="area btn-group">
+                    {% for year in year_list %}
+                    <input type="radio" name="year-btn" id='year-btn-{{ year }}' value="{{ year }}">
+                    <label class="btn btn-default btn-sm tab_class left_tab" for='year-btn-{{ year }}'>{{ year }}</label>
+                    {% endfor %}
+                  </div>
+                  <!-- 
+                  <div class="area btn-group">
+                    <input type="radio" name="year-btn" id="year4">
+                    <label class="btn btn-default btn-sm tab_class left_tab" for="year4">2023</label>
+
+                    <input type="radio" name="year-btn" id="year5">
+                    <label class="btn btn-default btn-sm tab_class" for="year5">2024</label>
+
+                    <input type="radio" name="year-btn" id="year6">
+                    <label class="btn btn-default btn-sm tab_class right_tab" for="year6">2025</label>
+                  </div>
+                  -->
+                </div>
+
+                <div class="col-md-12">
+                  <label><b>期間</b></label>
+                  <i class="fa fa-question-circle tooltip_img"><span
+                      class="description_top">表示する期間を選択出来ます。通年または確認したい月を選択してください。</span></i>
+                  <!-- 通年ボタン タブ -->
+                  <div class="area btn-group">
+                    <input type="radio" name="month-btn" id="month-btn-0" value="0">
+                    <label class="btn btn-default btn-sm tab_class right_left_tab" for="month-btn-0">通年</label>
+                  </div>
+                  <!-- 月ボタン タブ -->
+                  {% for i in '0369'|make_list %}
+                  <div class="area btn-group">
+                    {% for j in '123'|make_list %}
+                    <input type="radio" name="month-btn" id="month-btn-{{ i|add:j }}" value="{{ i|add:j }}">
+                    <label class="btn btn-default btn-sm tab_class left_tab" for="month-btn-{{ i|add:j }}">{{ i|add:j }}月</label>
+                    {% endfor %}
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+
+            <!-- 日単位、週単位選択 タブ -->
+            <div class="col-md-3 add_border_right">
+              <div class="form-group row">
+                <div class="col-md-12 add_padding">
+                  <label><b>表示単位</b></label>
+                  <i class="fa fa-question-circle tooltip_img"><span class="description_top">表示単位を切り替えられます。</span></i>
+                  <div class="area btn-group">
+                    <input type="radio" name="disp-unit-btn" id="monthly" value="monthly">
+                    <label class="btn btn-default btn-sm tab_class left_tab" for="monthly">日単位</label>
+
+                    <input type="radio" name="disp-unit-btn" id="weekly" value="weekly">
+                    <label class="btn btn-default btn-sm tab_class right_tab" for="weekly">週単位</label>
+                  </div>
+                </div>
+
+                <!-- 基準曜日選択 タブ -->
+                <div class="col-md-12 add_padding" id="date-of-week">
+                  <label><b>基準曜日選択</b></label>
+                  {% for days in day_list %}
+                  <div class="area btn-group">
+                    {% for key, day in days.items %}
+                    <input type="radio" name="select-day-btn" id="select-day-btn-{{ key }}" value="{{ key }}">
+                    <label class="btn btn-default btn-sm tab_class left_tab" for="select-day-btn-{{ key }}">{{ day }}</label>
+                    {% endfor %}
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+
+            <!-- 分母選択 タブ -->
+            <div class="col-md-3 add_border_right">
+              <div class="form-group row">
+                <div class="col-md-12 add_padding">
+                  <label><b>分母</b></label>
+                  <i class="fa fa-question-circle tooltip_img"><span
+                      class="description_top">母数の切り替えが出来ます。登録者または購入者基準で変更出来ます</span></i>
+                  <div class="area btn-group">
+                    <input type="radio" name="denominator-btn" id="register" value="register">
+                    <label class="btn btn-default btn-sm tab_class left_tab" for="register">登録者基準</label>
+
+                    <input type="radio" name="denominator-btn" id="purchaser" value="purchaser">
+                    <label class="btn btn-default btn-sm tab_class right_tab" for="purchaser">購入者基準</label>
+                  </div>
+                </div>
+
+                <!-- 表示単位 タブ -->
+                <div class="col-md-12 add_padding">
+                  <label><b>表示形式</b></label>
+                  <i class="fa fa-question-circle tooltip_img"><span
+                      class="description_top">表示形式を選択出来ます。割合で表示したい場合は「%で表示」を選択してください</span></i>
+                  <div class="area btn-group">
+                    <input type="radio" name="disp-format-btn" id="value" value="value">
+                    <label class="btn btn-default btn-sm tab_class left_tab" for="value">数値で表示</label>
+  
+                    <input type="radio" name="disp-format-btn" id="ratio" value="ratio">
+                    <label class="btn btn-default btn-sm tab_class right_tab" for="ratio">%で表示</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------- グラフ表示 -------------->
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>グラフ1<small>サブタイトル</small></h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          <canvas id="myChart1"></canvas>
+        </div>
+      </div>        
+    </div>
+  </div>
+
+  <!-------------- 基本情報 -------------->
+  <div class="row">
+    <div class="col-md-4 col-sm-4">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>基本情報</h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <table class="table table-striped" id="basic-table">
+            <thead>
+              <tr>
+                <th>MAX</th>
+                <th>MIN</th>
+                <th>AVE</th>
+                <th>SUM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>78</td>
+                <td>0</td>
+                <td>6.11</td>
+                <td>171</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-------------- データ一覧 -------------->
+    <div class="col-md-8 col-sm-8">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>データ一覧</h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+          <table class="table table-striped" id = "data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}
+
+{% block importjs %}
+
+<!------- pythonからのデータ ------->
+<script src="{% static 'generalanalysis/js/friend_chart.js' %}" defer></script>
+<!--
+{{ pythonでの変数名|json_script:"javascriptに渡すid" }}
+-->
+<!------- 通年のデータ ------->
+{% for year, data in year_data.items %}
+  {{ data|json_script:year }}
+{% endfor %}
+<!------- 月毎のデータ ------->
+{% for year_month, data in month_data.items %}
+  {{ data|json_script:year_month }}
+{% endfor %}
+<!------- 週毎のデータ ------->
+{% for year_month_weekly, data in weekly_data.items %}
+  {{ data|json_script:year_month_weekly }}
+{% endfor %}
+
+{% endblock importjs%}

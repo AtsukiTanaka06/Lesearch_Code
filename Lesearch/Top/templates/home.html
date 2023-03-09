@@ -1,0 +1,17 @@
+{% extends 'common/base.html' %}
+{% block content %}
+
+<h1>
+    {% load static %}
+    <img src="{% static 'top/img/home.png' %}" alt="" width="80" height="50">
+    <br>
+    Lesearch
+    {{ name }}
+</h1>
+
+<h2>
+    ログインする
+    <a href="{% url 'login' %}">ログイン</a>
+</h2>
+
+{% endblock content %}

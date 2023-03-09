@@ -1,0 +1,273 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="icon" href="{% static 'common/img/favicon.ico' %} " type="image/ico" />
+
+    <title>Lesearch</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}">
+    <!-- NProgress -->
+    <link rel="stylesheet" href="{% static 'vendors/nprogress/nprogress.css' %}">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{% static 'vendors/iCheck/skins/flat/blue.css' %}">
+	
+    <!-- bootstrap-progressbar -->
+    <link rel="stylesheet" href="{% static 'vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="{% static 'vendors/jqvmap/dist/jqvmap.min.css' %}">
+    <!-- bootstrap-daterangepicker -->
+    <link rel="stylesheet" href="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.css' %}">
+
+    <!-- Custom Theme Style -->
+    <link rel="stylesheet" href="{% static 'common/css/custom.min.css' %}">
+
+    <!-- Switchery -->
+    <link rel="stylesheet" href="{% static 'vendors/switchery/dist/switchery.min.css' %}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{% static 'vendors/select2/dist/css/select2.min.css' %}">
+
+    <!-- Custom Theme Style -->
+    <link rel="stylesheet" href="{% static 'accounts/css/accounts.css' %}"
+
+    
+    <!-- Chart.js -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+    
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="top.html" class="site_title"><i class="fa fa-paw"></i> <span>Lesearch</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="{% static 'common/img/img.jpg' %} " alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>{{consultantName}}</h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+                <a data-toggle="tooltip" data-placement="top" href="{% url 'logout' %}" title="ログアウト">
+                  <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                </a>
+            </div>
+            
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <nav class="nav navbar-nav">
+              <ul class=" navbar-right">
+                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                  </a>
+                  <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item"  href="javascript:;"> Profile</a>
+                      <a class="dropdown-item"  href="javascript:;">
+                        <span class="badge bg-red pull-right">50%</span>
+                        <span>Settings</span>
+                      </a>
+                  <a class="dropdown-item"  href="javascript:;">Help</a>
+                    <a class="dropdown-item"  href="{% url 'logout' %}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="row">
+            <div class="col-md-3   widget widget_tally_box">
+              <div class="x_panel">
+                <div class="x_content">
+                  <div class="flex" style="text-align: center; margin-bottom: 17px">
+                        <img src="{% static 'common/img/img.jpg' %}" alt="..." class="img-circle profile_img">
+                  </div>
+
+                  <div class="">
+
+                    <ul class="list-inline">
+
+
+                      <li>
+                        <p style="font-size:16px;font-weight: bold;">コンサルタント名<p><p>{{consultantName}}</p>
+                      </li>
+                      <li>
+                        <p style="font-size:16px;font-weight: bold;">クライアント名<p><p>{{clientName1}}</p>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="flex">
+                      <a class="btn btn-success btn-block"  href="{% url 'top1'  clientName1 %}"> メイン画面を開く</a>  
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3   widget widget_tally_box">
+                <div class="x_panel">
+                  <div class="x_content">
+                    <div class="flex" style="text-align: center; margin-bottom: 17px">
+                          <img src="{% static 'common/img/img.jpg' %}" alt="..." class="img-circle profile_img">
+                    </div>
+  
+                    <div class="">
+  
+                      <ul class="list-inline">
+  
+  
+                        <li>
+                          <p style="font-size:16px;font-weight: bold;">コンサルタント名<p><p>{{consultantName}}</p>
+                        </li>
+                        <li>
+                          <p style="font-size:16px;font-weight: bold;">クライアント名<p><p>{{clientName2}}</p>
+                        </li>
+                      </ul>
+                    </div>
+  
+                    <div class="flex">
+                        <a class="btn btn-success btn-block"  href="{% url 'top1'  clientName2 %}"> メイン画面を開く</a>  
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3   widget widget_tally_box">
+                <div class="x_panel">
+                  <div class="x_content">
+                    <div class="flex" style="text-align: center; margin-bottom: 17px">
+                          <img src="{% static 'common/img/img.jpg' %}" alt="..." class="img-circle profile_img">
+                    </div>
+  
+                    <div class="">
+  
+                      <ul class="list-inline">
+  
+  
+                        <li>
+                          <p style="font-size:16px;font-weight: bold;">コンサルタント名<p><p>{{consultantName}}</p>
+                        </li>
+                        <li>
+                          <p style="font-size:16px;font-weight: bold;">クライアント名<p><p>{{clientName3}}</p>
+                        </li>
+                      </ul>
+                    </div>
+  
+                    <div class="flex">
+                        <a class="btn btn-success btn-block"  href="{% url 'top1'  clientName3 %}"> メイン画面を開く</a>  
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div> 
+
+ 
+
+        </div>
+
+
+
+
+        <!-- /page content -->
+         
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
+    <!-- NProgress -->
+    <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
+    <!-- Chart.js -->
+    <!--<script src="{% static 'vendors/Chart.js/dist/Chart.min.js' %}"></script>-->
+    
+    <!-- gauge.js -->
+    <script src="{% static 'vendors/gauge.js/dist/gauge.min.js' %}"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{% static 'vendors/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
+    <!-- iCheck -->
+    <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
+    <!-- Skycons -->
+    <script src="{% static 'vendors/skycons/skycons.js' %}"></script>
+    <!-- Flot -->
+    <script src="{% static 'vendors/Flot/jquery.flot.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.pie.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.time.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.stack.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.resize.js' %}"></script>
+    <!-- Flot plugins -->
+    <script src="{% static 'vendors/flot.orderbars/js/jquery.flot.orderBars.js' %}"></script>
+    <script src="{% static 'vendors/flot-spline/js/jquery.flot.spline.min.js' %}"></script>
+    <script src="{% static 'vendors/flot.curvedlines/curvedLines.js' %}"></script>
+    <!-- DateJS -->
+    <script src="{% static 'vendors/DateJS/build/date.js' %}"></script>
+    <!-- JQVMap -->
+    <script src="{% static 'vendors/jqvmap/dist/jquery.vmap.js' %}"></script>
+    <script src="{% static 'vendors/jqvmap/dist/maps/jquery.vmap.world.js' %}"></script>
+    <script src="{% static 'vendors/jqvmap/examples/js/jquery.vmap.sampledata.js' %}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{% static 'vendors/moment/min/moment.min.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+    <!-- Switchery -->
+    <script src="{% static 'vendors/switchery/dist/switchery.min.js' %}"></script>
+    <!-- Select2 -->
+    <script src="{% static 'vendors/select2/dist/js/select2.full.min.js' %}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{% static 'common/js/custom.js' %}"></script>
+
+    {% block importjs %} {% endblock importjs%}
+
+  </body>
+
+</html>

@@ -1,0 +1,138 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block importcss %}
+<link rel="stylesheet" href="{% static 'common/css/analizeBase.css' %}">
+<link rel="stylesheet" href="{% static 'columnsettings/css/columnsettings.css' %}">
+{% endblock importcss%}
+
+{% block content %}
+<!------------------------------------------------------------------------------->
+<!--タブ切り替え-->
+<!------------------------------------------------------------------------------->
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group row">
+            <div class="col-md-12 add_padding">
+                <label><b>属性種類</b></label>
+                <i class="fa fa-question-circle tooltip_img"><span
+                        class="description_top">顧客属性の切り替えが出来ます。確認したい顧客属性の種類を選択してください。</span></i>
+                <div class="tab-group">
+                    <div class="area btn-group">
+                        {% for tag_key, tag_name in tag_names.items %}
+                            <input type="radio" name="setting-column-btn" id="{{ tag_key }}" value="{{ tag_key }}">
+                            <label class="btn btn-default btn-sm tab_class_setting_column" for="{{ tag_key }}">{{ tag_name }}</label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------------------------------------->
+<!--タブ切り替え end-->
+<!------------------------------------------------------------------------------->
+
+
+<!------------------------------------------------------------------------------->
+<!--タブ内容-->
+<!------------------------------------------------------------------------------->
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 id="group-name">流入経路のカラム設定</h2>
+                    <h2><small><input type="submit" value="設定完了"></small></h2>
+                    <input type="hidden" name="group-setting-input" id="group-setting-input" value="platform">
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    <!--Atsuki Add Start-->
+                    <div class="tab-group">
+                        <div class="area btn-group">
+                            {% for key, num in main_tags.items %}
+                                <input type="radio" name="setting-column-sub-btn" id="{{ key }}" value="{{ key }}">
+                                <label class="btn btn-default btn-sm tab_class_setting_sub_column" for="{{ key }}">{{ key }}</label>
+
+                            <!---->
+                            <div class="content_class">
+                                <!--Start Atsuki Add-->
+                                <button type = "button" onclick="AddColumn('data-table-{{ key }}')">項目を追加する</button>
+                                <!--End Atsuki Add-->
+                                <input type="text" class="form-control tag-name-main" name="tag-name-main" id="tag-name-main-{{ key }}" placeholder="メインのタグ名{{ num }}を入力してください">
+                                <table class="table table-striped" id="data-table-{{ key }}">
+                                    <thead>
+                                        <tr>
+                                            <th>表示</th>
+                                            <th>タグ名</th>
+                                            <th>設定済みタグ</th>
+                                            <th>表示名</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for num in '1234567891'|make_list %}
+                                        <tr>
+                                            <td>
+                                                <label>
+                                                    <!--Start Atsuki Edit-->
+                                                    <input type="checkbox" class="js-switch" name="checkbox-{{ key }}" id="checkbox-{{ key }}-{{ forloop.counter }}" value="{{ forloop.counter }}" checked>
+                                                    <!--
+                                                        <input type="checkbox" class="js-switch" name="checkbox-{{ key }}" id="checkbox-{{ key }}" value="{{ forloop.counter }}" checked>
+                                                    -->
+                                                    <!--End Atsuki Edit-->
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <select class="select_search form-control" name="tag-name-{{ key }}">
+                                                    <option value='none' selected>タグを選択してください</option>
+                                                    {% for column in columns %}
+                                                    <option value="{{ column }}">{{ column }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </td>
+                                            <!--設定済みタグ-->
+                                            <td>
+                                                <input type="text" class="form-control input_display_name set_tag" name="set-tag-name-{{ key }}" id="set-tag-name-{{ key }}" placeholder="設定済みのタグを表示します" value="設定済みのタグを表示します" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control input_display_name disp_tag" name="display-name-{{ key }}" id="display-name-{{ key }}" placeholder="グラフでの表示名を入力してください" value="グラフでの表示名を入力してください">
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                
+                <!---->
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!--Atsuki Add End-->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!------------------------------------------------------------------------------->
+<!--タブ内容 end-->
+<!------------------------------------------------------------------------------->
+
+<script src="{% static 'columnsettings/js/tab.js' %}" defer
+    data-colname="{{ first_col_name }}">
+</script>
+{{ platform_tag|json_script:1 }}
+{{ customer_tag|json_script:2 }}
+{{ survey_tag|json_script:3 }}
+{{ menu_tag|json_script:4 }}
+{{ channel_tag|json_script:5 }}
+{{ conversion_tag|json_script:6 }}
+
+{% endblock content %}

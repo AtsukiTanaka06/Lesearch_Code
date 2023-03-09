@@ -1,0 +1,9 @@
+<!-- templates/follow.html -->
+<form method="post">
+    {% csrf_token %}
+    {% if user.is_following %}
+      <button type="submit" name="action" value="unfollow">Unfollow</button>
+    {% else %}
+      <button type="submit" name="action" value="follow">Follow</button>
+    {% endif %}
+  </form>
