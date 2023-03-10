@@ -383,4 +383,6 @@ function AddColumn(data_table_key){
     cell_4.appendChild(cloneElems4);
     tr.appendChild(cell_4);
     table_tbody.appendChild(tr);
+
+    //testComment
 }
